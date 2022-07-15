@@ -1,0 +1,25 @@
+{
+  "name": "@manques/keycloak-js",
+  "version": "1.0.0",
+  "description": "library customization for project using cordova8.1.0, angular5.2.0 and keycloak.js4.0.0",
+  "main": "keycloak.js",
+  "scripts": {
+    "test": "npm i @manques/keycloak-js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manques/keycloak-js.git"
+  },
+  "keywords": [
+    "sso",
+    "auth2",
+    "odic",
+    "keycloak"
+  ],
+  "author": "anup kumar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manques/keycloak-js/issues"
+  },
+  "homepage": "https://github.com/manques/keycloak-js#readme"
+}
