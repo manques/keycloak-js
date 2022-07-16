@@ -1194,8 +1194,7 @@
                         } else if (kc.redirectUri) {
                             return kc.redirectUri;
                         } else {
-                            return 'android-app://net.gcsolutions.lmsqc1/https/lmsqc1.gc-solutions.net/login'
-                            // return location.href;
+                            return location.href;
                         }
                     }
                 };
@@ -1364,11 +1363,19 @@
                         }
                     },
 
-                    redirectUri: function(options) {
-                        if(options && options.redirectUri){
-                            return options.redirectUri;
+                    redirectUri: function(options, encodeHash) {
+                        // debugger
+                        if (arguments.length == 1) {
+                            encodeHash = true;
                         }
-                        return 'android-app://net.gcsolutions.lmsqc1/https/lmsqc1.gc-solutions.net/login';
+
+                        if (options && options.redirectUri) {
+                            return options.redirectUri;
+                        } else if (kc.redirectUri) {
+                            return kc.redirectUri;
+                        } else {
+                            return location.href;
+                        }
                     }
                 }
             }
