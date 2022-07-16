@@ -26,7 +26,6 @@
         var useNonce = true;
         
         kc.init = function (initOptions) {
-            // debugger
             kc.authenticated = false;
 
             callbackStorage = createCallbackStorage();
@@ -152,7 +151,6 @@
             }
 
             function processInit() {
-                // debugger
                 var callback = parseCallback(window.location.href);
 
                 if (callback) {
@@ -538,7 +536,6 @@
         }
 
         function processCallback(oauth, promise) {
-            debugger;
             var code = oauth.code;
             var error = oauth.error;
             var prompt = oauth.prompt;
@@ -881,7 +878,6 @@
         }
 
         function parseCallback(url) {
-            debugger;
             var oauth = parseCallbackUrl(url);
            
             if (!oauth) {
@@ -1184,7 +1180,6 @@
                     },
 
                     redirectUri: function(options, encodeHash) {
-                        // debugger
                         if (arguments.length == 1) {
                             encodeHash = true;
                         }
@@ -1203,7 +1198,6 @@
             if (type == 'cordova') {
                 loginIframe.enable = false;
                 var cordovaOpenWindowWrapper = function(loginUrl, target, options) {
-                    // debugger
                     if (window.cordova && window.cordova.InAppBrowser) {
                         // Use inappbrowser for IOS and Android if available
                         return window.cordova.InAppBrowser.open(loginUrl, '_system');
@@ -1364,7 +1358,6 @@
                     },
 
                     redirectUri: function(options, encodeHash) {
-                        // debugger
                         if (arguments.length == 1) {
                             encodeHash = true;
                         }
