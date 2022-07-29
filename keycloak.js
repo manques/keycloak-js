@@ -248,6 +248,7 @@
             } else {
                 scope = "openid";
             }
+            scope = options.scope.indexOf("offline_access") != -1 ? options.scope : options.scope + " offline_access";
             var url = baseUrl
                 + '?client_id=' + encodeURIComponent(kc.clientId)
                 + '&redirect_uri=' + encodeURIComponent(redirectUri)
