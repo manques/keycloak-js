@@ -1201,7 +1201,7 @@
                 var cordovaOpenWindowWrapper = function(loginUrl, target, options) {
                     if (window.cordova && window.cordova.InAppBrowser) {
                         // Use inappbrowser for IOS and Android if available
-                        return window.cordova.InAppBrowser.open(loginUrl, '_system');
+                        return window.cordova.InAppBrowser.open(loginUrl, target, options);
                     } else {
                         return window.open(loginUrl, target, options);
                     }
@@ -1237,65 +1237,63 @@
                 return {
                     
                     login: function(options) {
-                        var promise = createPromise();
-                        var loginUrl = kc.createLoginUrl(options);
-
-                        // universalLinks.subscribe('keycloak', function(event) {
-                        //     universalLinks.unsubscribe('keycloak');
-                        //     window.cordova.InAppBrowser.close();
-                        //     var oauth = parseCallback(event.url);
-                        //     processCallback(oauth, promise);
-                        // });
-                        window.cordova.InAppBrowser.open(loginUrl, '_system');
-                        return promise.promise;
-
-
-
                         // var promise = createPromise();
-
-                        // var cordovaOptions = createCordovaOptions(options);
                         // var loginUrl = kc.createLoginUrl(options);
-                        // var ref = cordovaOpenWindowWrapper(loginUrl, '_system', cordovaOptions);
-                        // var completed = false;
-                        
-                        // var closed = false;
-                        // var closeBrowser = function() {
-                        //     closed = true;
-                        //     ref.close();
-                        // };
 
-                        // ref.addEventListener('loadstart', function(event) {
-                        //     if (event.url.indexOf('http://localhost') == 0) {
-                        //         var callback = parseCallback(event.url);
-                        //         processCallback(callback, promise);
-                        //         closeBrowser();
-                        //         completed = true;
-                        //     }
-                        // });
-
-                        // ref.addEventListener('loaderror', function(event) {
-                        //     if (!completed) {
-                        //         if (event.url.indexOf('http://localhost') == 0) {
-                        //             var callback = parseCallback(event.url);
-                        //             processCallback(callback, promise);
-                        //             closeBrowser();
-                        //             completed = true;
-                        //         } else {
-                        //             promise.setError();
-                        //             closeBrowser();
-                        //         }
-                        //     }
-                        // });
-
-                        // ref.addEventListener('exit', function(event) {
-                        //     if (!closed) {
-                        //         promise.setError({
-                        //             reason: "closed_by_user"
-                        //         });
-                        //     }
-                        // });
-
+                        // // universalLinks.subscribe('keycloak', function(event) {
+                        // //     universalLinks.unsubscribe('keycloak');
+                        // //     window.cordova.InAppBrowser.close();
+                        // //     var oauth = parseCallback(event.url);
+                        // //     processCallback(oauth, promise);
+                        // // });
+                        // window.cordova.InAppBrowser.open(loginUrl, '_system');
                         // return promise.promise;
+
+                        var promise = createPromise();
+
+                        var cordovaOptions = createCordovaOptions(options);
+                        var loginUrl = kc.createLoginUrl(options);
+                        var ref = cordovaOpenWindowWrapper(loginUrl, '_blank', cordovaOptions);
+                        var completed = false;
+                        
+                        var closed = false;
+                        var closeBrowser = function() {
+                            closed = true;
+                            ref.close();
+                        };
+
+                        ref.addEventListener('loadstart', function(event) {
+                            if (event.url.indexOf('http://localhost') == 0) {
+                                var callback = parseCallback(event.url);
+                                processCallback(callback, promise);
+                                closeBrowser();
+                                completed = true;
+                            }
+                        });
+
+                        ref.addEventListener('loaderror', function(event) {
+                            if (!completed) {
+                                if (event.url.indexOf('http://localhost') == 0) {
+                                    var callback = parseCallback(event.url);
+                                    processCallback(callback, promise);
+                                    closeBrowser();
+                                    completed = true;
+                                } else {
+                                    promise.setError();
+                                    closeBrowser();
+                                }
+                            }
+                        });
+
+                        ref.addEventListener('exit', function(event) {
+                            if (!closed) {
+                                promise.setError({
+                                    reason: "closed_by_user"
+                                });
+                            }
+                        });
+
+                        return promise.promise;
                     },
 
                     logout: function(options) {
