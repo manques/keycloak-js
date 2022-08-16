@@ -1196,7 +1196,7 @@
                 };
             }
 
-            if (type == 'cordova') {
+         if (type == 'cordova') {
                 loginIframe.enable = false;
                 var cordovaOpenWindowWrapper = function(loginUrl, target, options) {
                     if (window.cordova && window.cordova.InAppBrowser) {
@@ -1253,7 +1253,8 @@
 
                         var cordovaOptions = createCordovaOptions(options);
                         var loginUrl = kc.createLoginUrl(options);
-                        var ref = cordovaOpenWindowWrapper(loginUrl, '_blank', cordovaOptions);
+                        var ref = cordovaOpenWindowWrapper(loginUrl, '_blank', 'clearcache=yes,location=no,toolbar=no,hidenavigationbuttons=yes');
+                        // var ref = cordovaOpenWindowWrapper(loginUrl, '_blank', cordovaOptions);
                         var completed = false;
                         
                         var closed = false;
@@ -1300,21 +1301,25 @@
                         var promise = createPromise();
                         
                         var logoutUrl = kc.createLogoutUrl(options);
-                        var ref = cordovaOpenWindowWrapper(logoutUrl, '_blank', 'location=no,hidden=yes');
+                        var ref = cordovaOpenWindowWrapper(logoutUrl, '_blank', 'clearcache=yes,location=no,toolbar=no,hidenavigationbuttons=yes');
 
                         var error;
 
                         ref.addEventListener('loadstart', function(event) {
-                            if (event.url.indexOf('http://localhost') == 0) {
+                            console.log(event);
+                            if (event.url.indexOf('http://localhost') == 0) { // http%3A%2F%2Flocalhost
                                 ref.close();
                             }
                         });
 
-                        ref.addEventListener('loaderror', function(event) {
+                        ref.addEventListener('loaderror', function (event) {
                             if (event.url.indexOf('http://localhost') == 0) {
+                                kc.clearToken();
+                                promise.setSuccess();
                                 ref.close();
                             } else {
                                 error = true;
+                                promise.setError();
                                 ref.close();
                             }
                         });

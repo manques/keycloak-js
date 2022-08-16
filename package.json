@@ -1,6 +1,6 @@
 {
   "name": "@manques/keycloak-js",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "library customization for project using cordova8.1.0, angular5.2.0 and keycloak.js4.0.0",
   "main": "keycloak.js",
   "scripts": {
