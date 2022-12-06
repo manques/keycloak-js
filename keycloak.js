@@ -1417,12 +1417,7 @@
 
             var cordovaOptions = createCordovaOptions(options);
             var loginUrl = kc.createLoginUrl(options);
-            var ref = cordovaOpenWindowWrapper(
-              loginUrl,
-              "_blank",
-              "clearcache=yes,location=no,toolbar=no,hidenavigationbuttons=yes"
-            );
-            // var ref = cordovaOpenWindowWrapper(loginUrl, '_blank', cordovaOptions);
+            var ref = cordovaOpenWindowWrapper(loginUrl, '_blank', cordovaOptions);
             var completed = false;
 
             var closed = false;
