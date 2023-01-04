@@ -198,6 +198,7 @@ function Keycloak (config) {
                 var src = kc.createLoginUrl({prompt: 'none', redirectUri: kc.silentCheckSsoRedirectUri});
                 ifrm.setAttribute("src", src);
                 ifrm.setAttribute("title", "keycloak-silent-check-sso");
+                ifrm.setAttribute("id", "keycloak-silent-check-sso");
                 ifrm.style.display = "none";
                 document.body.appendChild(ifrm);
 
@@ -209,7 +210,9 @@ function Keycloak (config) {
                     var oauth = parseCallback(event.data);
                     processCallback(oauth, initPromise);
 
-                    document.body.removeChild(ifrm);
+                    // document.body.removeChild(ifrm);
+                    var iframeElement = window.document.getElementById('keycloak-silent-check-sso');
+                    iframeElement.remove();
                     window.removeEventListener("message", messageCallback);
                 };
 
@@ -1305,6 +1308,7 @@ function Keycloak (config) {
             var iframe = document.createElement('iframe');
             iframe.setAttribute('src', kc.endpoints.thirdPartyCookiesIframe());
             iframe.setAttribute('title', 'keycloak-3p-check-iframe' );
+            iframe.setAttribute('id', 'keycloak-3p-check-iframe');
             iframe.style.display = 'none';
             document.body.appendChild(iframe);
 
@@ -1324,7 +1328,9 @@ function Keycloak (config) {
                         "silent check-sso are not available.");
                 }
 
-                document.body.removeChild(iframe);
+                // document.body.removeChild(iframe);
+                var iframeElement = window.document.getElementById('keycloak-3p-check-iframe');
+                iframeElement.remove();
                 window.removeEventListener("message", messageCallback);
                 promise.setSuccess();
             };
