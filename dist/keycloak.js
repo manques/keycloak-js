@@ -2087,6 +2087,7 @@
 	                if (userOptions && userOptions.prompt == 'none') {
 	                    cordovaOptions.hidden = 'yes';
 	                }
+					cordovaOptions['toolbar'] = 'no';
 	                return formatCordovaOptions(cordovaOptions);
 	            };
 
