@@ -9,6 +9,8 @@
     var refreshQueue = [];
     var callbackStorage;
 
+    var closeLoginPromptRef;
+
     var loginIframe = {
       enable: true,
       callbackList: [],
@@ -234,6 +236,11 @@
 
     kc.login = function (options) {
       return adapter.login(options);
+    };
+
+    kc.closeLoginPrompt = function () {
+      console.log('closeInApp by universal link')
+      closeLoginPromptRef.close();
     };
 
     kc.createLoginUrl = function (options) {
@@ -1418,6 +1425,7 @@
             var cordovaOptions = createCordovaOptions(options);
             var loginUrl = kc.createLoginUrl(options);
             var ref = cordovaOpenWindowWrapper(loginUrl, '_blank', cordovaOptions);
+            closeLoginPromptRef = ref;
             var completed = false;
 
             var closed = false;

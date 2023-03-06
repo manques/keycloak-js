@@ -484,5 +484,10 @@ declare namespace Keycloak {
 		 * @private Undocumented.
 		 */
 		loadUserInfo(): KeycloakPromise<{}, void>;
+
+		/*
+		*  close  login prompt	
+		*/
+		closeLoginPrompt(): void;
 	}
 }
